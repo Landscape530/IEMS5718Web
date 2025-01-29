@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HLiBaba-Main Page</title>
+    <link rel="stylesheet" href="..\css\styles.css">
+    <!-- <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet"> -->
+    <script src="../js/breadcrumb.js" defer></script>
+
+</head>
+<body>
+    <header>
+        <h1>HLibaba</h1>
+        
+    </header>
+
+    <!-- 在 body 中添加导航栏 -->
+    <nav id="breadcrumb">
+        <a href="index.html" id="home-link">Home</a>
+    </nav>
+
+   
+    <div class="content">
+        <!-- 左侧商品种类列表 -->
+        <aside class="sidebar">
+            <h3>商品种类</h3>
+            <ul id="category-list">
+                <li><a href="#" data-category="electronics">电子产品</a></li>
+                <li><a href="#" data-category="clothing">服饰</a></li>
+                <li><a href="#" data-category="books">书籍</a></li>
+            </ul>
+        </aside>
+
+        <!-- 右侧商品展示区 -->
+        <section class="products">
+            <h2 id="category-title">请选择一个分类</h2>
+            <div id="product-list"></div>
+        </section>
+    </div>
+
+    <!-- <section id="shopping-cart" class="hidden">
+        <h2>购物车</h2>
+        <ul id="cart-items"></ul>
+        <p id="cart-total">总价格: $0.00</p>
+    </section>
+
+    <div id="cart-link">
+        <i class="fas fa-shopping-cart"></i>
+        <span>购物车</span>
+    </div> -->
+
+   
+    <footer>
+        <p>版权所有 &copy; HLibaba 2025</p>
+    </footer>
+
+    <script src="..\js\script.js"></script>
+</body>
+</html>
