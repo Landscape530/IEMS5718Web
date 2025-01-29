@@ -17,14 +17,21 @@ header {
 }
 
 /* 导航栏样式 */
+/* 面包屑导航样式 */
 #breadcrumb {
-    font-size: 16px;
-    margin-top: 5px;
+    padding: 10px 20px;
+    background-color: #f8f9fa;
+    border-radius: 5px;
+    margin: 10px 0;
 }
 
-#breadcrumb a {
-    text-decoration: none;
+#breadcrumb a, #breadcrumb span {
+    margin: 0 5px;
     color: #007BFF;
+}
+
+#breadcrumb span {
+    color: #666;
 }
 
 #breadcrumb a:hover {
