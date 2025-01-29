@@ -1,73 +1,58 @@
 document.addEventListener("DOMContentLoaded", function () {
-    const breadcrumb = document.getElementById("breadcrumb");
-    const params = new URLSearchParams(window.location.search);
-    const category = params.get("category");
-
-    let breadcrumbText = '<a href="index.html" id="home-link">主页</a>';
-    if (category) {
-        breadcrumbText += ' -> <a href="index.html?category=' + category + '">' + category + '</a>';
-    }
-    breadcrumb.innerHTML = breadcrumbText;
-
+    const categoryList = document.getElementById("category-list");
     const productList = document.getElementById("product-list");
+    const categoryTitle = document.getElementById("category-title");
 
     // 商品数据
     const products = {
         electronics: [
-            { name: "智能手机", img: "../images/p1.jpg",description: "高清音质，无线便捷1" },
-            { name: "笔记本电脑", img: "../images/p2.jpg",description: "高性能智能手机" },
+            { name: "智能手机", img: "../images/p1.jpg" },
+            { name: "笔记本电脑", img: "../images/p2.jpg" },
             { name: "无线耳机", img: "../images/p3.jpg" }
         ],
         clothing: [
-            { name: "T恤", img: "../images/p4.jpg", description: "舒适透气" },
-            { name: "牛仔裤", img: "../images/p5.jpg" , description: "经典款式，舒适穿着"},
+            { name: "T恤", img: "../images/p4.jpg" },
+            { name: "牛仔裤", img: "../images/p5.jpg" },
             { name: "运动鞋", img: "../images/p6.jpg" }
         ],
         books: [
-            { name: "小说", img: "../images/p7.jpg", description: "适合初学者" },
-            { name: "科技书籍", img: "../images/p8.jpg" , description: "进阶学习必备"},
+            { name: "小说", img: "../images/p7.jpg" },
+            { name: "科技书籍", img: "../images/p8.jpg" },
             { name: "漫画", img: "" }
         ]
     };
 
-    // 点击类别时加载商品
-    const categoryLinks = document.querySelectorAll("#category-list a");
-    categoryLinks.forEach(link => {
-        link.addEventListener("click", function (e) {
-            e.preventDefault();
-            const selectedCategory = this.getAttribute("data-category");
-            window.location.href = "index.html?category=" + selectedCategory;
-        });
+
+    categoryList.addEventListener("click", function (event) {
+        event.preventDefault();
+        if (event.target.tagName === "A") {
+            const category = event.target.dataset.category;
+            displayProducts(category);
+        }
     });
 
     // 更新商品列表
-    function updateProductList(category) {
-        productList.innerHTML = ''; // 清空当前商品列表
-        const categoryProducts = products[category];
+    function displayProducts(category) {
+        productList.innerHTML = ""; // 清空之前的内容
+        categoryTitle.textContent = `当前分类: ${category === "electronics" ? "电子产品" : category === "clothing" ? "服饰" : "书籍"}`;
 
-        categoryProducts.forEach(product => {
-            const productDiv = document.createElement("div");
-            productDiv.classList.add("product");
+        products[category].forEach(product => {
+            const productItem = document.createElement("div");
+            productItem.classList.add("product-item");
 
-            const productImage = document.createElement("img");
-            productImage.src = product.image;
-            productImage.alt = product.name;
+            productItem.innerHTML = `
+                <img src="${product.img}" alt="${product.name}">
+                <p>${product.name}</p>
+            `;
+            
+            productItem.addEventListener("click", () => {
+                window.location.href = `product.html?name=${encodeURIComponent(product.name)}&img=${encodeURIComponent(product.img)}&desc=${encodeURIComponent(product.desc)}`;
+            });
 
-            const productTitle = document.createElement("h3");
-            productTitle.textContent = product.name;
-
-            const productDescription = document.createElement("p");
-            productDescription.textContent = product.description;
-
-            productDiv.appendChild(productImage);
-            productDiv.appendChild(productTitle);
-            productDiv.appendChild(productDescription);
-
-            productList.appendChild(productDiv);
+            productList.appendChild(productItem);
         });
     }
 
-    if (category) {
-        updateProductList(category);
-    }
+    
+
 });

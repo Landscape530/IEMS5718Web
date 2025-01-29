@@ -19,13 +19,12 @@ header {
 /* 导航栏样式 */
 #breadcrumb {
     font-size: 16px;
-    margin: 20px 0;
+    margin-top: 5px;
 }
 
 #breadcrumb a {
     text-decoration: none;
     color: #007BFF;
-    padding: 0 5px;
 }
 
 #breadcrumb a:hover {
@@ -119,7 +118,15 @@ header {
 
 #back-button:hover {
     background-color: #0056b3;
-} */
+} 
+
+footer {
+    background-color: #f2f2f2;
+    color: red;
+    text-align: center; /* 文本居中 */
+    padding: 10px 0;
+    width: 100%; /* 让 footer 撑满整个屏幕宽度 */
+}
 
 /* 购物车浮现部分 */
 /* #shopping-cart {
@@ -173,11 +180,5 @@ header {
     display: none;
 } */ */
 
-footer {
-    background-color: #f2f2f2;
-    padding: 20px;
-    text-align: center;
-    position: fixed;
-    bottom: 0;
-    width: 100%;
-}
+
+
