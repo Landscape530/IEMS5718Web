@@ -5,13 +5,31 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>商品详情 - HLiBaba</title>
     <link rel="stylesheet" href="../css/styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
 
 </head>
 <body>
+     <!-- 购物车组件 -->
+     <div id="cart-icon">
+        <i class="fas fa-shopping-cart"></i>
+        <span id="cart-count">0</span>
+    </div>
+    
+    <!-- 购物车侧边栏 -->
+    <div id="cart-sidebar">
+        <div class="cart-header">
+            <h3>购物车清单</h3>
+            <button id="clear-cart">清空</button>
+        </div>
+        <ul id="cart-items"></ul>
+        <p id="cart-total">总价：￥0.00</p>
+        <button id="checkout-btn">去结算</button>
+    </div>
+
     <header>
         <h1>商品详情</h1>
         <nav id="breadcrumb">
-            <a href="index.html">Home</a>
+            <div id="breadcrumb"></div>
         </nav>
     </header>
 
@@ -21,26 +39,16 @@
         </aside>
 
         <section class="products">
-            <h2 id="product-title"></h2>
             <div id="product-detail">
                 <img id="product-image" src="" alt="">
-                <p id="product-description"></p>
+                <div class="product-info">
+                    <h2 id="product-title"></h2>
+                    <p class="price" id="product-price"></p>
+                    <button id="product-add-to-cart">加入购物车</button>
+                </div>
+                <div id="product-description"></div>
             </div>
         </section>
-    </div>
-
-    <!-- 购物车悬浮按钮 -->
-    <div id="cart-icon">
-        <i class="fas fa-shopping-cart"></i>
-        <span id="cart-count">0</span>
-    </div>
-
-    <!-- 购物车侧边栏 -->
-    <div id="cart-sidebar">
-        <h3>购物车清单</h3>
-        <ul id="cart-items"></ul>
-        <p id="cart-total">总价：￥0.00</p>
-        <button id="checkout-btn">去结算</button>
     </div>
 
     <footer>
