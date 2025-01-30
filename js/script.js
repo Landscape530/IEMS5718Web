@@ -8,7 +8,7 @@ const cart = {
 
     add(product) {
         try {
-            console.info(product)
+            console.info("cart加入购物车ing",product)
             if (!product?.price || isNaN(product.price)) {
                 throw new Error(`无效商品数据: ${JSON.stringify(product)}`);
             }
@@ -75,8 +75,6 @@ const cart = {
         };
         requestAnimationFrame(updateUI);
     },
-
-    
 
     init() {
         // 事件委托处理所有购物车操作
@@ -168,7 +166,9 @@ document.addEventListener("DOMContentLoaded", function () {
     // 更新商品列表
     function displayProducts(category) {
         productList.innerHTML = ""; // 清空之前的内容
-        console.warn("111",category);
+
+        // console.warn("111",category);
+
         const categoryName = {
             electronics: "电子产品",
             clothing: "服饰",
@@ -201,6 +201,7 @@ document.addEventListener("DOMContentLoaded", function () {
                         price: product.price,
                         desc: product.desc
                     });
+                    console.info("111111")
                     window.location.href = `product.html?${params.toString()}`;
                 }
             });
@@ -216,7 +217,7 @@ document.addEventListener("DOMContentLoaded", function () {
         if (e.target.tagName === 'A') {
             e.preventDefault();
             const category = e.target.dataset.category;
-            console.warn(category);
+            // console.warn(category);
             displayProducts(category);
         }
     });

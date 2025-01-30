@@ -8,7 +8,7 @@ const cart = {
 
     add(product) {
         try {
-            console.info(product)
+            console.info("trying to add product 2",product)
             if (!product?.price || isNaN(product.price)) {
                 throw new Error(`无效商品数据: ${JSON.stringify(product)}`);
             }
@@ -77,7 +77,6 @@ const cart = {
     },
 
     
-
     init() {
         // 事件委托处理所有购物车操作
         document.addEventListener('click', e => {
@@ -87,10 +86,10 @@ const cart = {
 
             if (addBtn) {
                 this.add({
-                    name: addBtn.dataset.name,
-                    price: parseFloat(addBtn.dataset.price),
+                    name: name1,
+                    price: price1,
                     img: addBtn.dataset.img,
-                    category: addBtn.dataset.category
+                    category: category1
                 });
             }
 
@@ -123,6 +122,10 @@ const cart = {
 
 cart.init();
 
+var name1 = "";
+var price1 = 0;
+var category1 = "";
+
 document.addEventListener("DOMContentLoaded", function () {
     const params = new URLSearchParams(location.search);
     const category = params.get('category');
@@ -134,8 +137,12 @@ document.addEventListener("DOMContentLoaded", function () {
         category: category
     };
 
-    console.warn(product);          //------------------
-    console.warn(category);
+    name1 = params.get('name');
+    price1 = parseFloat(params.get('price'));
+    category1 = category;
+
+    // console.warn(product);          //------------------
+    // console.warn(category);
 
     // 修复面包屑导航（显示分类层级）
     const breadcrumb = document.getElementById('breadcrumb');
@@ -144,7 +151,7 @@ document.addEventListener("DOMContentLoaded", function () {
                             category === "服饰" ? "clothing" : "books";
 
 
-    console.warn(categoryName);
+    // console.warn(categoryName);
 
     if (category) {
         
@@ -183,33 +190,33 @@ document.addEventListener("DOMContentLoaded", function () {
         console.warn('商品图片加载失败，已使用默认图片');
     };
 
-    const addToCartBtn = document.getElementById('product-add-to-cart');
-    if (addToCartBtn) {
-        addToCartBtn.addEventListener('click', () => {
-            try {
-                if (!product.price || isNaN(product.price)) {
-                    throw new Error('无效的商品价格2');
-                }
+    // const addToCartBtn = document.getElementById('product-add-to-cart');
+    // if (addToCartBtn) {
+    //     addToCartBtn.addEventListener('click', () => {
+    //         try {
+    //             if (!product.price || isNaN(product.price)) {
+    //                 throw new Error('无效的商品价格2');
+    //             }
                 
-                window.cart.add({
-                    name: product.name,
-                    price: product.price,
-                    img: product.img,
-                    category: product.category || '未分类'
-                });
+    //             window.cart.add({
+    //                 name: product.name,
+    //                 price: product.price,
+    //                 img: product.img,
+    //                 category: product.category || '未分类'
+    //             });
                 
-                // 添加视觉反馈
-                addToCartBtn.textContent = '✓ 已加入';
-                setTimeout(() => {
-                    addToCartBtn.textContent = '加入购物车';
-                }, 2000);
+    //             // 添加视觉反馈
+    //             addToCartBtn.textContent = '✓ 已加入';
+    //             setTimeout(() => {
+    //                 addToCartBtn.textContent = '加入购物车';
+    //             }, 2000);
                 
-            } catch (error) {
-                console.error('加入购物车失败:', error);
-                alert(error.message);
-            }
-        });
-    }
+    //         } catch (error) {
+    //             console.error('加入购物车失败:', error);
+    //             alert(error.message);
+    //         }
+    //     });
+    // }
 
     // 返回按钮携带分类状态
     document.getElementById('back-button').addEventListener('click', function() {
