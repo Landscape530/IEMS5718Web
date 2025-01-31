@@ -128,15 +128,6 @@ header {
     background-color: #0056b3;
 } 
 
-footer {
-    background-color: #f2f2f2;
-    color: red;
-    text-align: center; /* 文本居中 */
-    padding: 10px 0;
-    width: 100%; /* 让 footer 撑满整个屏幕宽度 */
-}
-
-/* styles.css 新增 */
 .product-info {
     margin-top: 20px;
     padding: 15px;
@@ -175,6 +166,25 @@ footer {
     font-size: 1.2em;
     margin: 10px 0;
 }
+
+/* 输入框 */
+.product-action {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.quantity-input {
+    margin-top: 20px;
+    width: 70px;
+    padding: 12px 24px;
+    font-size: 16px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    
+}
+/* 购物车 */
 
 .add-to-cart {
     background: #007BFF;
@@ -241,4 +251,14 @@ footer {
     color: #dc3545;
     cursor: pointer;
     padding: 0 5px;
+}
+
+
+/* 页脚 */
+footer {
+    background-color: #f2f2f2;
+    color: red;
+    text-align: center; /* 文本居中 */
+    padding: 10px 0;
+    width: 100%; /* 让 footer 撑满整个屏幕宽度 */
 }

@@ -76,12 +76,21 @@ const cart = {
         requestAnimationFrame(updateUI);
     },
 
+    checkout(){
+        if(confirm('确定要提交购物车吗?')){
+            this.items = [];
+            this.update();
+            this.save();
+        }
+    },
+    
     init() {
         // 事件委托处理所有购物车操作
         document.addEventListener('click', e => {
             const addBtn = e.target.closest('.add-to-cart');
             const removeBtn = e.target.closest('.remove-item');
             const clearBtn = e.target.matches('#clear-cart');
+            const checkoutBtn = e.target.matches('#checkout-btn');
 
             if (addBtn) {
                 this.add({
@@ -98,6 +107,10 @@ const cart = {
 
             if (clearBtn) {
                 this.clear();
+            }
+
+            if(checkoutBtn){
+                this.checkout();
             }
         });
 
@@ -167,8 +180,6 @@ document.addEventListener("DOMContentLoaded", function () {
     function displayProducts(category) {
         productList.innerHTML = ""; // 清空之前的内容
 
-        // console.warn("111",category);
-
         const categoryName = {
             electronics: "电子产品",
             clothing: "服饰",
@@ -201,7 +212,6 @@ document.addEventListener("DOMContentLoaded", function () {
                         price: product.price,
                         desc: product.desc
                     });
-                    console.info("111111")
                     window.location.href = `product.html?${params.toString()}`;
                 }
             });
@@ -217,12 +227,10 @@ document.addEventListener("DOMContentLoaded", function () {
         if (e.target.tagName === 'A') {
             e.preventDefault();
             const category = e.target.dataset.category;
-            // console.warn(category);
             displayProducts(category);
         }
     });
 
-     // 初始化
     const params = new URLSearchParams(location.search);
     const initialCategory = params.get('category');
     initialCategory ? displayProducts(initialCategory) : updateBreadcrumb();

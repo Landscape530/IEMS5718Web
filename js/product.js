@@ -6,21 +6,24 @@ const cart = {
         window.dispatchEvent(new Event('cartUpdate')); // 触发跨页面同步
     },
 
-    add(product) {
+    add(product,quantity) {
         try {
             console.info("trying to add product 2",product)
             if (!product?.price || isNaN(product.price)) {
                 throw new Error(`无效商品数据: ${JSON.stringify(product)}`);
             }
 
+            quantity = parseInt(quantity) || 1;
+            if (quantity < 1) quantity = 1;
+
             const existItem = this.items.find(item => item.name === product.name);
             if (existItem) {
-                existItem.quantity++;
+                existItem.quantity += quantity;
             } else {
                 this.items.push({
                     ...product,
                     price: Number(product.price),
-                    quantity: 1
+                    quantity: quantity
                 });
             }
             this.update();
@@ -76,6 +79,13 @@ const cart = {
         requestAnimationFrame(updateUI);
     },
 
+    checkout(){
+        if(confirm('确定要提交购物车吗?')){
+            this.items = [];
+            this.update();
+            this.save();
+        }
+    },
     
     init() {
         // 事件委托处理所有购物车操作
@@ -83,14 +93,17 @@ const cart = {
             const addBtn = e.target.closest('#product-add-to-cart');
             const removeBtn = e.target.closest('.remove-item');
             const clearBtn = e.target.matches('#clear-cart');
+            const checkoutBtn = e.target.matches('#checkout-btn');
 
             if (addBtn) {
+                const quantityInput = document.getElementById('product-quantity').value;
+                const quantity = parseInt(quantityInput) || 1;
                 this.add({
                     name: name1,
                     price: price1,
                     img: addBtn.dataset.img,
                     category: category1
-                });
+                },quantity);
             }
 
             if (removeBtn) {
@@ -99,6 +112,10 @@ const cart = {
 
             if (clearBtn) {
                 this.clear();
+            }
+
+            if(checkoutBtn){
+                this.checkout();
             }
         });
 
@@ -141,17 +158,12 @@ document.addEventListener("DOMContentLoaded", function () {
     price1 = parseFloat(params.get('price'));
     category1 = category;
 
-    // console.warn(product);          //------------------
-    // console.warn(category);
 
     // 修复面包屑导航（显示分类层级）
     const breadcrumb = document.getElementById('breadcrumb');
     let breadcrumbHtml = '<a href="index.html">Home</a>';
     const categoryName = category === "电子产品" ? "electronics" : 
                             category === "服饰" ? "clothing" : "books";
-
-
-    // console.warn(categoryName);
 
     if (category) {
         
@@ -165,7 +177,6 @@ document.addEventListener("DOMContentLoaded", function () {
     document.getElementById('product-title').textContent = product.name;
     document.getElementById('product-price').textContent = `￥${product.price.toFixed(2)}`;
     document.getElementById('product-image').src = product.img;
-    // document.getElementById('product-description').textContent = product.desc;
 
     const descContainer = document.getElementById("product-description");
     descContainer.innerHTML = `
@@ -189,34 +200,6 @@ document.addEventListener("DOMContentLoaded", function () {
         this.src = '../images/default.jpg';
         console.warn('商品图片加载失败，已使用默认图片');
     };
-
-    // const addToCartBtn = document.getElementById('product-add-to-cart');
-    // if (addToCartBtn) {
-    //     addToCartBtn.addEventListener('click', () => {
-    //         try {
-    //             if (!product.price || isNaN(product.price)) {
-    //                 throw new Error('无效的商品价格2');
-    //             }
-                
-    //             window.cart.add({
-    //                 name: product.name,
-    //                 price: product.price,
-    //                 img: product.img,
-    //                 category: product.category || '未分类'
-    //             });
-                
-    //             // 添加视觉反馈
-    //             addToCartBtn.textContent = '✓ 已加入';
-    //             setTimeout(() => {
-    //                 addToCartBtn.textContent = '加入购物车';
-    //             }, 2000);
-                
-    //         } catch (error) {
-    //             console.error('加入购物车失败:', error);
-    //             alert(error.message);
-    //         }
-    //     });
-    // }
 
     // 返回按钮携带分类状态
     document.getElementById('back-button').addEventListener('click', function() {
